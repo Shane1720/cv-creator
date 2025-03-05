@@ -1,4 +1,4 @@
-import './CVCreator.css';
+// import './CVCreator.css';  // Comment it out like this
 import React, { useState } from 'react';
 import { ChevronDown, ChevronUp, CheckCircle, Edit, Download, BookOpen, PlusCircle, Trash2, Save } from 'lucide-react';
 
