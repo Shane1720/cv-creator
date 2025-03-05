@@ -844,4 +844,324 @@ const CVCreator = () => {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">Awards & Honors
+            <label className="block text-sm font-medium mb-1">Awards & Honors</label>
+            <textarea 
+              rows="3"
+              className="w-full p-2 border rounded"
+              value={sections.additional.awards}
+              onChange={(e) => handleAdditionalChange('awards', e)}
+              placeholder="• Dean's List, 2023
+- First Place, University Hackathon, 2022
+- Department Scholarship for Academic Excellence"
+            />
+          </div>
+          
+          <div className="text-sm text-gray-600">
+            <p className="font-medium">Tips:</p>
+            <ul className="list-disc pl-5 space-y-1">
+              <li>Include only relevant certifications and activities that showcase valuable skills.</li>
+              <li>For extracurriculars, highlight leadership roles and responsibilities.</li>
+              <li>Include dates for certifications and activities when possible.</li>
+              <li>Be selective - focus on quality over quantity.</li>
+            </ul>
+          </div>
+        </div>
+      )
+    },
+    {
+      title: 'Review & Download',
+      description: 'Preview your CV and download a formatted copy',
+      content: (
+        <div className="space-y-4">
+          <div className="flex justify-between items-center">
+            <h3 className="font-medium text-lg">CV Preview</h3>
+            <div className="flex space-x-2">
+              <button 
+                className="flex items-center bg-blue-600 text-white rounded px-4 py-2"
+                onClick={togglePreview}
+              >
+                {cvPreview ? <Edit size={18} className="mr-1"/> : <BookOpen size={18} className="mr-1"/>}
+                {cvPreview ? 'Edit' : 'Preview'}
+              </button>
+              <button className="flex items-center bg-green-600 text-white rounded px-4 py-2">
+                <Download size={18} className="mr-1"/>
+                Download PDF
+              </button>
+            </div>
+          </div>
+          
+          {cvPreview ? (
+            <div className="border p-6 bg-white">
+              <CVPreview sections={sections} />
+            </div>
+          ) : (
+            <div className="space-y-4">
+              <div className="border p-4 rounded bg-gray-50">
+                <h3 className="font-medium mb-2">CV Formatting Tips</h3>
+                <ul className="list-disc pl-5 space-y-1 text-sm">
+                  <li>Use a clean, professional font like Arial, Calibri, or Times New Roman.</li>
+                  <li>Maintain consistent formatting (headings, bullet points, dates).</li>
+                  <li>Keep your CV to 1-2 pages for entry-level positions.</li>
+                  <li>Use subtle highlighting (bold, italics) for important information.</li>
+                  <li>Ensure good spacing and margins for readability.</li>
+                </ul>
+              </div>
+              
+              <div className="border p-4 rounded bg-gray-50">
+                <h3 className="font-medium mb-2">Final Checks</h3>
+                <ul className="list-disc pl-5 space-y-1 text-sm">
+                  <li>Proofread for spelling and grammar errors.</li>
+                  <li>Verify that all dates and information are accurate.</li>
+                  <li>Ensure contact information is up-to-date.</li>
+                  <li>Check that all links (LinkedIn, portfolio) are working.</li>
+                  <li>Tailor your CV to each job application.</li>
+                  {keywords.length > 0 && (
+                    <li className="text-blue-600">Verify you've included key terms from the job description: {keywords.slice(0, 5).join(', ')}</li>
+                  )}
+                </ul>
+              </div>
+            </div>
+          )}
+        </div>
+      )
+    }
+  ];
+  
+  // Navigation buttons
+  const handleNext = () => {
+    if (activeStep < steps.length - 1) {
+      setActiveStep(activeStep + 1);
+    }
+  };
+  
+  const handlePrevious = () => {
+    if (activeStep > 0) {
+      setActiveStep(activeStep - 1);
+    }
+  };
+  
+  // CV Preview component
+  const CVPreview = ({ sections }) => {
+    return (
+      <div className="font-sans max-w-3xl mx-auto text-gray-800">
+        {/* Header */}
+        <div className="text-center mb-6">
+          <h1 className="text-2xl font-bold mb-1">{sections.personalInfo.fullName || 'Your Name'}</h1>
+          <div className="flex flex-wrap justify-center gap-x-3 text-sm">
+            {sections.personalInfo.email && (
+              <span>{sections.personalInfo.email}</span>
+            )}
+            {sections.personalInfo.phone && (
+              <span>{sections.personalInfo.phone}</span>
+            )}
+            {sections.personalInfo.location && (
+              <span>{sections.personalInfo.location}</span>
+            )}
+          </div>
+          {(sections.personalInfo.linkedIn || sections.personalInfo.portfolio) && (
+            <div className="flex flex-wrap justify-center gap-x-3 text-sm mt-1">
+              {sections.personalInfo.linkedIn && (
+                <span>{sections.personalInfo.linkedIn}</span>
+              )}
+              {sections.personalInfo.portfolio && (
+                <span>{sections.personalInfo.portfolio}</span>
+              )}
+            </div>
+          )}
+        </div>
+        
+        {/* Professional Summary */}
+        {sections.professionalSummary && (
+          <div className="mb-5">
+            <h2 className="text-lg font-semibold border-b pb-1 mb-2">Professional Summary</h2>
+            <p>{sections.professionalSummary}</p>
+          </div>
+        )}
+        
+        {/* Education */}
+        {sections.education[0]?.institution && (
+          <div className="mb-5">
+            <h2 className="text-lg font-semibold border-b pb-1 mb-2">Education</h2>
+            {sections.education.map((edu, index) => (
+              <div key={index} className="mb-3">
+                <div className="flex justify-between">
+                  <div>
+                    <span className="font-medium">{edu.institution}</span>
+                    {edu.location && <span>, {edu.location}</span>}
+                  </div>
+                  <div>
+                    {edu.startDate && edu.endDate && (
+                      <span>{edu.startDate} - {edu.endDate}</span>
+                    )}
+                  </div>
+                </div>
+                <div>
+                  <span>{edu.degree}</span>
+                  {edu.classification && <span>, {edu.classification}</span>}
+                </div>
+                {edu.relevantModules && (
+                  <div className="text-sm">
+                    <span className="italic">Relevant Modules:</span> {edu.relevantModules}
+                  </div>
+                )}
+                {edu.dissertation && (
+                  <div className="text-sm">
+                    <span className="italic">Dissertation:</span> {edu.dissertation}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+        
+        {/* Skills */}
+        {(sections.skills.technical || sections.skills.soft || sections.skills.languages) && (
+          <div className="mb-5">
+            <h2 className="text-lg font-semibold border-b pb-1 mb-2">Skills</h2>
+            {sections.skills.technical && (
+              <div className="mb-2">
+                <span className="font-medium">Technical Skills:</span> {sections.skills.technical}
+              </div>
+            )}
+            {sections.skills.soft && (
+              <div className="mb-2">
+                <span className="font-medium">Soft Skills:</span> {sections.skills.soft}
+              </div>
+            )}
+            {sections.skills.languages && (
+              <div className="mb-2">
+                <span className="font-medium">Languages:</span> {sections.skills.languages}
+              </div>
+            )}
+          </div>
+        )}
+        
+        {/* Experience */}
+        {sections.experience[0]?.organisation && (
+          <div className="mb-5">
+            <h2 className="text-lg font-semibold border-b pb-1 mb-2">Experience</h2>
+            {sections.experience.map((exp, index) => (
+              <div key={index} className="mb-3">
+                <div className="flex justify-between">
+                  <div>
+                    <span className="font-medium">{exp.organisation}</span>
+                    {exp.location && <span>, {exp.location}</span>}
+                  </div>
+                  <div>
+                    {exp.startDate && exp.endDate && (
+                      <span>{exp.startDate} - {exp.endDate}</span>
+                    )}
+                  </div>
+                </div>
+                <div className="font-medium">{exp.title}</div>
+                <div className="whitespace-pre-line text-sm">
+                  {exp.responsibilities}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+        
+        {/* Projects */}
+        {sections.projects[0]?.title && (
+          <div className="mb-5">
+            <h2 className="text-lg font-semibold border-b pb-1 mb-2">Projects</h2>
+            {sections.projects.map((project, index) => (
+              <div key={index} className="mb-3">
+                <div className="font-medium">{project.title}</div>
+                <div className="text-sm mb-1">{project.description}</div>
+                {project.skills && (
+                  <div className="text-sm">
+                    <span className="italic">Skills:</span> {project.skills}
+                  </div>
+                )}
+                {project.results && (
+                  <div className="text-sm">
+                    <span className="italic">Results:</span> {project.results}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+        
+        {/* Additional */}
+        {(sections.additional.certifications || sections.additional.extracurricular || sections.additional.awards) && (
+          <div className="mb-5">
+            <h2 className="text-lg font-semibold border-b pb-1 mb-2">Additional Information</h2>
+            {sections.additional.certifications && (
+              <div className="mb-2">
+                <div className="font-medium">Certifications & Courses</div>
+                <div className="whitespace-pre-line text-sm">{sections.additional.certifications}</div>
+              </div>
+            )}
+            {sections.additional.extracurricular && (
+              <div className="mb-2">
+                <div className="font-medium">Extracurricular Activities</div>
+                <div className="whitespace-pre-line text-sm">{sections.additional.extracurricular}</div>
+              </div>
+            )}
+            {sections.additional.awards && (
+              <div className="mb-2">
+                <div className="font-medium">Awards & Honors</div>
+                <div className="whitespace-pre-line text-sm">{sections.additional.awards}</div>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    );
+  };
+  
+  return (
+    <div className="min-h-screen bg-gray-50 p-4 md:p-8">
+      <div className="max-w-6xl mx-auto bg-white rounded-lg shadow-md p-6">
+        <h1 className="text-3xl font-bold text-center mb-8">UK CV Creator</h1>
+        
+        {/* Progress tracking */}
+        <div className="mb-8">
+          <div className="flex justify-between mb-2">
+            <span className="text-sm text-gray-500">Step {activeStep + 1} of {steps.length} ({Math.floor((activeStep + 1) / steps.length * 100)}%)</span>
+          </div>
+          <div className="w-full bg-gray-200 rounded-full h-2">
+            <div 
+              className="bg-blue-600 h-2 rounded-full" 
+              style={{ width: `${Math.floor((activeStep + 1) / steps.length * 100)}%` }}
+            ></div>
+          </div>
+        </div>
+        
+        {/* Step header */}
+        <div className="mb-6">
+          <h2 className="text-xl font-semibold">{steps[activeStep].title}</h2>
+          <p className="text-gray-600">{steps[activeStep].description}</p>
+        </div>
+        
+        {/* Step content */}
+        <div className="mb-8">
+          {steps[activeStep].content}
+        </div>
+        
+        {/* Navigation buttons */}
+        <div className="flex justify-between">
+          <button
+            className="px-4 py-2 border rounded text-gray-600 hover:bg-gray-100 disabled:opacity-50"
+            onClick={handlePrevious}
+            disabled={activeStep === 0}
+          >
+            Previous
+          </button>
+          <button
+            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+            onClick={handleNext}
+            disabled={activeStep === steps.length - 1}
+          >
+            Next
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default CVCreator;
