@@ -1148,16 +1148,17 @@ const CVCreator = () => {
         
         {/* Progress tracking */}
         <div className="mb-8">
-          <div className="flex justify-between mb-2">
-            <span className="text-sm text-gray-500">Step {activeStep + 1} of {steps.length} ({Math.floor((activeStep + 1) * 100 / steps.length)}%)</span>
-          </div>
-          <div className="w-full bg-gray-200 rounded-full h-2.5">
-            <div 
-              className="bg-blue-700 h-2.5 rounded-full transition-all duration-300 ease-in-out"
-              style={{ width: `${((activeStep + 1) / steps.length) * 100}%` }}
-            ></div>
-          </div>
-        </div>
+  <div className="flex justify-between mb-2">
+    <span className="text-sm text-gray-500">Step {activeStep + 1} of 8</span>
+    <span className="text-sm text-gray-500">Progress: 12.5%</span>
+  </div>
+  <div className="w-full bg-gray-200 rounded-full h-2.5">
+    <div 
+      className="bg-blue-600 h-2.5 rounded-full"
+      style={{ width: '12.5%' }}
+    ></div>
+  </div>
+</div>
         
         {/* Step header */}
         <div className="mb-8">
