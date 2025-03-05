@@ -1,3 +1,4 @@
+import './CVCreator.css';
 import React, { useState } from 'react';
 import { ChevronDown, ChevronUp, CheckCircle, Edit, Download, BookOpen, PlusCircle, Trash2, Save } from 'lucide-react';
 
@@ -1149,7 +1150,7 @@ const CVCreator = () => {
         <div className="mb-8">
           <div className="flex justify-between mb-2">
             <span className="text-sm font-medium text-gray-600">Step {activeStep + 1} of {steps.length}</span>
-            <span className="text-sm font-medium text-gray-600">{Math.round((activeStep + 1) / steps.length * 100)}% Complete</span>
+            <span>Step {activeStep + 1} of {steps.length} ({parseInt(((activeStep + 1) / steps.length) * 100)}% Complete)</span>
           </div>
           <div className="w-full bg-gray-200 rounded-full h-2.5">
             <div 
