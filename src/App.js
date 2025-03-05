@@ -547,54 +547,31 @@ const CVCreator = () => {
   };
   
   return (
-    <div style={{ 
-      minHeight: '100vh', 
-      backgroundColor: '#f5f7fa', 
-      padding: '20px' 
-    }}>
-      <div style={{ 
-        maxWidth: '1000px', 
-        margin: '0 auto', 
-        backgroundColor: 'white', 
-        borderRadius: '12px', 
-        boxShadow: '0 4px 16px rgba(0,0,0,0.08)', 
-        padding: '30px' 
-      }}>
-        <h1 style={{ 
-          fontSize: '32px', 
-          fontWeight: 'bold', 
-          textAlign: 'center', 
-          marginBottom: '30px',
-          color: '#333' 
-        }}>UK CV Creator</h1>
-        
-        {/* Progress tracking */}
-        <div style={{ marginBottom: '30px' }}>
-          <div style={{ 
-            display: 'flex', 
-            justifyContent: 'space-between', 
-            marginBottom: '8px' 
-          }}>
-            <span style={{ fontSize: '14px', color: '#666' }}>
-              Step {activeStep + 1} of {steps.length} ({Math.floor((activeStep + 1) / steps.length * 100)}%)
-            </span>
-          </div>
-          <div style={{ 
-            width: '100%', 
-            height: '8px', 
-            backgroundColor: '#E5E7EB', 
-            borderRadius: '4px', 
-            overflow: 'hidden' 
-          }}>
-            <div style={{ 
-              height: '100%', 
-              width: `${Math.floor((activeStep + 1) / steps.length * 100)}%`, 
-              backgroundColor: '#4F46E5', 
-              borderRadius: '4px', 
-              transition: 'width 0.3s ease' 
-            }}></div>
-          </div>
-        </div>
+  <div style={{ 
+    maxWidth: "1000px", 
+    margin: "0 auto", 
+    padding: "20px",
+    backgroundColor: "white", 
+    borderRadius: "8px",
+    boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
+    fontFamily: "Arial, sans-serif"
+  }}>
+    <h1 style={{ fontSize: "32px", fontWeight: "bold", textAlign: "center", marginBottom: "20px" }}>UK CV Creator</h1>
+    
+    {/* Progress tracking */}
+    <div style={{ marginBottom: "20px" }}>
+      <span style={{ fontSize: "14px" }}>Step {activeStep + 1} of {steps.length} ({Math.floor((activeStep + 1) / steps.length * 100)}% Complete)</span>
+      <div style={{ width: "100%", height: "8px", backgroundColor: "#e0e0e0", borderRadius: "4px", marginTop: "8px" }}>
+        <div 
+          style={{ 
+            width: `${Math.floor((activeStep + 1) / steps.length * 100)}%`, 
+            height: "100%", 
+            backgroundColor: "#3b82f6", 
+            borderRadius: "4px" 
+          }}
+        ></div>
+      </div>
+    </div>
         
         {/* Step header */}
         <div style={{ marginBottom: '24px' }}>
@@ -618,60 +595,34 @@ const CVCreator = () => {
           {steps[activeStep].content}
         </div>
         
-        {/* Navigation buttons */}
-        <div style={{ 
-          display: 'flex', 
-          justifyContent: 'space-between', 
-          marginTop: '40px' 
-        }}>
-          <button
-            style={{ 
-              padding: '10px 20px', 
-              backgroundColor: activeStep === 0 ? '#F3F4F6' : 'white', 
-              color: activeStep === 0 ? '#9CA3AF' : '#374151', 
-              border: '1px solid #D1D5DB',
-              borderRadius: '6px',
-              fontWeight: '500',
-              cursor: activeStep === 0 ? 'not-allowed' : 'pointer',
-              display: 'flex',
-              alignItems: 'center'
-            }}
-            onClick={handlePrevious}
-            disabled={activeStep === 0}
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" 
-                 stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" 
-                 style={{ marginRight: '8px' }}>
-              <path d="M19 12H5M12 19l-7-7 7-7"/>
-            </svg>
-            Previous
-          </button>
-          <button
-            style={{ 
-              padding: '10px 20px', 
-              backgroundColor: '#4F46E5', 
-              color: 'white', 
-              border: 'none', 
-              borderRadius: '6px',
-              fontWeight: '500',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center'
-            }}
-            onClick={handleNext}
-            disabled={activeStep === steps.length - 1}
-          >
-            Next
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" 
-                 stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-                 style={{ marginLeft: '8px' }}>
-              <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-};
+        <div style={{ display: "flex", justifyContent: "space-between", marginTop: "30px" }}>
+  <button
+    style={{ 
+      padding: "10px 20px", 
+      backgroundColor: activeStep === 0 ? "#f3f4f6" : "white",
+      border: "1px solid #d1d5db",
+      borderRadius: "6px",
+      cursor: activeStep === 0 ? "not-allowed" : "pointer" 
+    }}
+    onClick={handlePrevious}
+    disabled={activeStep === 0}
+  >
+    Previous
+  </button>
+  <button
+    style={{ 
+      padding: "10px 20px", 
+      backgroundColor: "#3b82f6", 
+      color: "white", 
+      border: "none",
+      borderRadius: "6px",
+      cursor: "pointer" 
+    }}
+    onClick={handleNext}
+    disabled={activeStep === steps.length - 1}
+  >
+    Next
+  </button>
+</div>
 
 export default CVCreator;
