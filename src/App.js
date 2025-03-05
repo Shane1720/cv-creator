@@ -558,20 +558,19 @@ const CVCreator = () => {
   }}>
     <h1 style={{ fontSize: "32px", fontWeight: "bold", textAlign: "center", marginBottom: "20px" }}>UK CV Creator</h1>
     
-    {/* Progress tracking */}
-    <div style={{ marginBottom: "20px" }}>
-      <span style={{ fontSize: "14px" }}>Step {activeStep + 1} of {steps.length} ({Math.floor((activeStep + 1) / steps.length * 100)}% Complete)</span>
-      <div style={{ width: "100%", height: "8px", backgroundColor: "#e0e0e0", borderRadius: "4px", marginTop: "8px" }}>
-        <div 
-          style={{ 
-            width: `${Math.floor((activeStep + 1) / steps.length * 100)}%`, 
-            height: "100%", 
-            backgroundColor: "#3b82f6", 
-            borderRadius: "4px" 
-          }}
-        ></div>
-      </div>
-    </div>
+   <div className="mb-8">
+  <div className="flex justify-between mb-2">
+    <span className="text-sm text-gray-500">
+      Step {activeStep + 1} of {steps.length} ({Math.floor((activeStep + 1) / steps.length * 100)}%)
+    </span>
+  </div>
+  <div className="w-full bg-gray-200 rounded-full h-2">
+    <div 
+      className="bg-blue-600 h-2 rounded-full" 
+      style={{ width: `${Math.floor((activeStep + 1) / steps.length * 100)}%` }}
+    ></div>
+  </div>
+</div>
         
         {/* Step header */}
         <div style={{ marginBottom: '24px' }}>
